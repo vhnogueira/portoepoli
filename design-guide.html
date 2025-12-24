@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porto e Poli - Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pp-navy': '#0B1D3F',
+                        'pp-deep': '#1A2F54',
+                        'pp-blue': '#2B7FE5',
+                        'pp-gold': '#D4AF37',
+                        'pp-slate': '#64748B',
+                        'pp-light': '#FAFBFC',
+                        'pp-gray': '#E2E8F0',
+                    },
+                    fontFamily: {
+                        'display': ['Lexend', 'sans-serif'],
+                        'body': ['IBM Plex Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #0B1D3F;
+            color: #FAFBFC;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sharp Grid Background */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(43, 127, 229, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(43, 127, 229, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Diagonal Accent Pattern */
+        .diagonal-accent {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .diagonal-accent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(43, 127, 229, 0.1) 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+        }
+
+        /* Sharp Shadow System */
+        .shadow-sharp {
+            box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .shadow-sharp-accent {
+            box-shadow: 6px 6px 0px 0px rgba(43, 127, 229, 0.3);
+        }
+
+        /* Animation Keyframes */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes geometricReveal {
+            from {
+                clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            }
+            to {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 0.6s ease-out forwards;
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 0.6s ease-out forwards;
+        }
+
+        .animate-slide-in-up {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .animate-geometric-reveal {
+            animation: geometricReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Stagger delays */
+        .delay-100 { animation-delay: 0.1s; opacity: 0; }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-300 { animation-delay: 0.3s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+
+        /* Interactive States */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Card Hover Effects */
+        .card-sharp {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-sharp:hover {
+            transform: translate(-4px, -4px);
+        }
+
+        /* Color Swatches */
+        .swatch {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Typography Scale */
+        .type-display-1 { font-size: 4.5rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+        .type-display-2 { font-size: 3.5rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+        .type-h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.01em; }
+        .type-h2 { font-size: 2.25rem; font-weight: 700; }
+        .type-h3 { font-size: 1.875rem; font-weight: 600; }
+        .type-h4 { font-size: 1.5rem; font-weight: 600; }
+        .type-h5 { font-size: 1.25rem; font-weight: 600; }
+        .type-body-lg { font-size: 1.125rem; font-weight: 400; }
+        .type-body { font-size: 1rem; font-weight: 400; }
+        .type-body-sm { font-size: 0.875rem; font-weight: 400; }
+        .type-caption { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+
+        /* Section Divider */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #2B7FE5 0%, transparent 100%);
+            margin: 3rem 0;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #1A2F54;
+            border: 2px solid #2B7FE5;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="grid-bg">
+
+    <!-- Hero Header -->
+    <header class="py-20 diagonal-accent">
+        <div class="container">
+            <div class="max-w-4xl">
+                <div class="inline-block bg-pp-blue px-4 py-2 mb-6 animate-slide-in-left">
+                    <span class="type-caption text-pp-light">Design System v1.0</span>
+                </div>
+                <h1 class="type-display-1 text-pp-light mb-6 animate-slide-in-right delay-100">
+                    Porto e Poli
+                </h1>
+                <p class="type-h3 text-pp-slate mb-8 animate-slide-in-right delay-200">
+                    Passagens e Turismo
+                </p>
+                <div class="h-1 w-32 bg-pp-gold animate-geometric-reveal delay-300"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section class="py-16 bg-pp-deep">
+        <div class="container">
+            <div class="max-w-3xl">
+                <h2 class="type-h2 text-pp-light mb-6">Geometric Precision</h2>
+                <p class="type-body-lg text-pp-slate mb-4">
+                    This design system embodies a sharp, architectural aesthetic inspired by Brazilian modernism.
+                    Every element speaks to efficiency, professionalism, and corporate sophistication.
+                </p>
+                <p class="type-body-lg text-pp-slate">
+                    The zero border radius constraint creates a distinctive, memorable identity—sharp corners
+                    that cut through the noise of rounded, generic travel websites.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Color System -->
+    <section class="py-16">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Color Palette</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                A sophisticated palette built on navy blue authority, with strategic accents that convey premium service and trustworthy efficiency.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Primary -->
+                <div>
+                    <h3 class="type-h5 text-pp-light mb-4">Primary Colors</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="swatch bg-pp-navy text-pp-light shadow-sharp">
+                                NAVY
+                            </div>
+                            <div class="mt-2 text-sm text-pp-slate font-body">
+                                <code>#0B1D3F</code> • pp-navy<br/>
+                                Primary brand color, backgrounds
+                            </div>
+                        </div>
+                        <div>
+                            <div class="swatch bg-pp-deep text-pp-light shadow-sharp">
+                                DEEP BLUE
+                            </div>
+                            <div class="mt-2 text-sm text-pp-slate font-body">
+                                <code>#1A2F54</code> • pp-deep<br/>
+                                Secondary surfaces, cards
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accent -->
+                <div>
+                    <h3 class="type-h5 text-pp-light mb-4">Accent Colors</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="swatch bg-pp-blue text-pp-light shadow-sharp-accent">
+                                BRIGHT BLUE
+                            </div>
+                            <div class="mt-2 text-sm text-pp-slate font-body">
+                                <code>#2B7FE5</code> • pp-blue<br/>
+                                CTAs, interactive elements, links
+                            </div>
+                        </div>
+                        <div>
+                            <div class="swatch bg-pp-gold text-pp-navy shadow-sharp">
+                                GOLD
+                            </div>
+                            <div class="mt-2 text-sm text-pp-slate font-body">
+                                <code>#D4AF37</code> • pp-gold<br/>
+                                Premium features, highlights
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neutral -->
+                <div>
+                    <h3 class="type-h5 text-pp-light mb-4">Neutral Colors</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="swatch bg-pp-slate text-pp-light shadow-sharp">
+                                SLATE
+                            </div>
+                            <div class="mt-2 text-sm text-pp-slate font-body">
+                                <code>#64748B</code> • pp-slate<br/>
+                                Secondary text, borders
+                            </div>
+                        </div>
+                        <div>
+                            <div class="swatch bg-pp-light text-pp-navy shadow-sharp">
+                                LIGHT
+                            </div>
+                            <div class="mt-2 text-sm text-pp-slate font-body">
+                                <code>#FAFBFC</code> • pp-light<br/>
+                                Primary text on dark, backgrounds
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tailwind Config -->
+            <div class="mt-12">
+                <h3 class="type-h5 text-pp-light mb-4">Tailwind Configuration</h3>
+                <div class="code-block">
+<pre>theme: {
+  extend: {
+    colors: {
+      'pp-navy': '#0B1D3F',
+      'pp-deep': '#1A2F54',
+      'pp-blue': '#2B7FE5',
+      'pp-gold': '#D4AF37',
+      'pp-slate': '#64748B',
+      'pp-light': '#FAFBFC',
+      'pp-gray': '#E2E8F0',
+    }
+  }
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Typography -->
+    <section class="py-16 bg-pp-deep">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Typography</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                A pairing of Lexend (geometric, modern display) and IBM Plex Sans (professional, corporate body text)
+                creates clarity and authority.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Font Families -->
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Font Families</h3>
+                    <div class="space-y-6">
+                        <div class="bg-pp-navy p-6 shadow-sharp">
+                            <p class="type-caption text-pp-blue mb-2">DISPLAY / HEADINGS</p>
+                            <p class="text-4xl font-display text-pp-light">Lexend</p>
+                            <p class="type-body-sm text-pp-slate mt-3">
+                                Weights: 300, 400, 500, 600, 700, 800<br/>
+                                Use: Headlines, titles, emphasis
+                            </p>
+                        </div>
+                        <div class="bg-pp-navy p-6 shadow-sharp">
+                            <p class="type-caption text-pp-blue mb-2">BODY TEXT</p>
+                            <p class="text-4xl font-body text-pp-light">IBM Plex Sans</p>
+                            <p class="type-body-sm text-pp-slate mt-3">
+                                Weights: 300, 400, 500, 600<br/>
+                                Use: Body copy, UI elements, descriptions
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Type Scale -->
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Type Scale</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="type-display-1 text-pp-light">Display 1</p>
+                            <p class="type-body-sm text-pp-slate mt-1">72px / 800 / -0.02em • Hero headlines</p>
+                        </div>
+                        <div>
+                            <p class="type-display-2 text-pp-light">Display 2</p>
+                            <p class="type-body-sm text-pp-slate mt-1">56px / 700 / -0.02em • Section headers</p>
+                        </div>
+                        <div>
+                            <p class="type-h1 text-pp-light">Heading 1</p>
+                            <p class="type-body-sm text-pp-slate mt-1">48px / 700 / -0.01em</p>
+                        </div>
+                        <div>
+                            <p class="type-h2 text-pp-light">Heading 2</p>
+                            <p class="type-body-sm text-pp-slate mt-1">36px / 700</p>
+                        </div>
+                        <div>
+                            <p class="type-h3 text-pp-light">Heading 3</p>
+                            <p class="type-body-sm text-pp-slate mt-1">30px / 600</p>
+                        </div>
+                        <div>
+                            <p class="type-body-lg text-pp-light">Body Large • 18px / 400</p>
+                        </div>
+                        <div>
+                            <p class="type-body text-pp-light">Body Regular • 16px / 400</p>
+                        </div>
+                        <div>
+                            <p class="type-caption text-pp-blue">CAPTION • 12PX / 500 / UPPERCASE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Font Import -->
+            <div class="mt-12">
+                <h3 class="type-h5 text-pp-light mb-4">Google Fonts Import</h3>
+                <div class="code-block">
+<pre>&lt;link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"&gt;
+
+// Tailwind Config
+fontFamily: {
+  'display': ['Lexend', 'sans-serif'],
+  'body': ['IBM Plex Sans', 'sans-serif'],
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Spacing System -->
+    <section class="py-16">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Spacing System</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                Use Tailwind's default spacing scale (4px base unit) with generous whitespace to create breathing room and hierarchy.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Component Spacing</h3>
+                    <div class="bg-pp-deep p-6 shadow-sharp">
+                        <div class="space-y-4 text-pp-slate type-body-sm">
+                            <div class="flex justify-between">
+                                <span>Micro elements (icons, badges)</span>
+                                <code class="text-pp-blue">2-4px</code>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Small gaps (form labels, list items)</span>
+                                <code class="text-pp-blue">8-12px</code>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Medium spacing (cards, sections)</span>
+                                <code class="text-pp-blue">16-24px</code>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Large gaps (between sections)</span>
+                                <code class="text-pp-blue">32-48px</code>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Page sections</span>
+                                <code class="text-pp-blue">64-96px</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Layout Guidelines</h3>
+                    <div class="bg-pp-deep p-6 shadow-sharp">
+                        <ul class="space-y-3 text-pp-slate type-body-sm">
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Container max-width: 1400px</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Content max-width: 768px for readability</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Grid gaps: 24px (mobile) / 32px (desktop)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Padding: 16px (mobile) / 32px (desktop)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Use asymmetric layouts for visual interest</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Border Radius & Shadows -->
+    <section class="py-16 bg-pp-deep">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Border Radius & Shadows</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                Sharp corners define the aesthetic. Paired with geometric shadows for depth without softness.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Border Radius -->
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Border Radius</h3>
+                    <div class="bg-pp-navy p-8 shadow-sharp">
+                        <div class="h-32 bg-pp-blue flex items-center justify-center">
+                            <span class="type-h5 text-pp-light">ZERO</span>
+                        </div>
+                        <p class="type-body-sm text-pp-slate mt-4">
+                            All elements use <code class="text-pp-blue">border-radius: 0</code><br/>
+                            Sharp, geometric, architectural
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Shadow System -->
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Shadow System</h3>
+                    <div class="space-y-6">
+                        <div class="bg-pp-navy p-6 shadow-sharp">
+                            <p class="type-caption text-pp-blue mb-2">SHARP SHADOW</p>
+                            <p class="type-body-sm text-pp-slate">
+                                <code>box-shadow: 8px 8px 0px 0px rgba(0,0,0,0.2);</code><br/>
+                                Use for cards, buttons, primary elements
+                            </p>
+                        </div>
+                        <div class="bg-pp-navy p-6 shadow-sharp-accent">
+                            <p class="type-caption text-pp-blue mb-2">ACCENT SHADOW</p>
+                            <p class="type-body-sm text-pp-slate">
+                                <code>box-shadow: 6px 6px 0px 0px rgba(43,127,229,0.3);</code><br/>
+                                Use for interactive states, hover effects
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Components -->
+    <section class="py-16">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">UI Components</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                Production-ready components built with the Porto e Poli design language.
+            </p>
+
+            <!-- Buttons -->
+            <div class="mb-16">
+                <h3 class="type-h3 text-pp-light mb-8">Buttons</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div>
+                        <p class="type-caption text-pp-blue mb-4">PRIMARY</p>
+                        <button class="btn-primary bg-pp-blue text-pp-light px-8 py-4 type-body font-semibold shadow-sharp w-full">
+                            Buscar Passagens
+                        </button>
+                        <div class="code-block mt-4 text-xs">
+&lt;button class="bg-pp-blue text-pp-light px-8 py-4 font-semibold shadow-sharp hover:translate-x-[-4px] hover:translate-y-[-4px]"&gt;
+  Buscar Passagens
+&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="type-caption text-pp-blue mb-4">SECONDARY</p>
+                        <button class="btn-primary border-2 border-pp-blue text-pp-light px-8 py-4 type-body font-semibold shadow-sharp-accent w-full">
+                            Ver Pacotes
+                        </button>
+                        <div class="code-block mt-4 text-xs">
+&lt;button class="border-2 border-pp-blue text-pp-light px-8 py-4 font-semibold shadow-sharp-accent"&gt;
+  Ver Pacotes
+&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="type-caption text-pp-blue mb-4">ACCENT</p>
+                        <button class="btn-primary bg-pp-gold text-pp-navy px-8 py-4 type-body font-semibold shadow-sharp w-full">
+                            Contato Premium
+                        </button>
+                        <div class="code-block mt-4 text-xs">
+&lt;button class="bg-pp-gold text-pp-navy px-8 py-4 font-semibold shadow-sharp"&gt;
+  Contato Premium
+&lt;/button&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards -->
+            <div class="mb-16">
+                <h3 class="type-h3 text-pp-light mb-8">Cards</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="card-sharp bg-pp-deep p-6 shadow-sharp">
+                        <div class="w-12 h-12 bg-pp-blue flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-pp-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </div>
+                        <h4 class="type-h5 text-pp-light mb-3">Voos Corporativos</h4>
+                        <p class="type-body-sm text-pp-slate">
+                            Passagens aéreas para empresas com as melhores tarifas negociadas.
+                        </p>
+                    </div>
+
+                    <div class="card-sharp bg-pp-deep p-6 shadow-sharp">
+                        <div class="w-12 h-12 bg-pp-gold flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-pp-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                        <h4 class="type-h5 text-pp-light mb-3">Hospedagem</h4>
+                        <p class="type-body-sm text-pp-slate">
+                            Hotéis selecionados para viajantes corporativos exigentes.
+                        </p>
+                    </div>
+
+                    <div class="card-sharp bg-pp-deep p-6 shadow-sharp">
+                        <div class="w-12 h-12 bg-pp-blue flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-pp-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            </svg>
+                        </div>
+                        <h4 class="type-h5 text-pp-light mb-3">Gestão Completa</h4>
+                        <p class="type-body-sm text-pp-slate">
+                            Relatórios e controle total das viagens corporativas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="code-block mt-6">
+<pre>&lt;div class="bg-pp-deep p-6 shadow-sharp hover:translate-x-[-4px] hover:translate-y-[-4px] transition-transform"&gt;
+  &lt;div class="w-12 h-12 bg-pp-blue flex items-center justify-center mb-4"&gt;
+    &lt;!-- Icon --&gt;
+  &lt;/div&gt;
+  &lt;h4 class="text-xl font-semibold text-pp-light mb-3"&gt;Voos Corporativos&lt;/h4&gt;
+  &lt;p class="text-sm text-pp-slate"&gt;Passagens aéreas...&lt;/p&gt;
+&lt;/div&gt;</pre>
+                </div>
+            </div>
+
+            <!-- Form Inputs -->
+            <div class="mb-16">
+                <h3 class="type-h3 text-pp-light mb-8">Form Inputs</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label class="type-caption text-pp-blue block mb-3">ORIGEM</label>
+                        <input
+                            type="text"
+                            placeholder="São Paulo (GRU)"
+                            class="w-full bg-pp-deep border-2 border-pp-slate text-pp-light px-4 py-3 type-body focus:border-pp-blue focus:outline-none transition-colors"
+                        />
+                    </div>
+                    <div>
+                        <label class="type-caption text-pp-blue block mb-3">DESTINO</label>
+                        <input
+                            type="text"
+                            placeholder="Rio de Janeiro (GIG)"
+                            class="w-full bg-pp-deep border-2 border-pp-slate text-pp-light px-4 py-3 type-body focus:border-pp-blue focus:outline-none transition-colors"
+                        />
+                    </div>
+                </div>
+
+                <div class="code-block mt-6">
+<pre>&lt;input
+  type="text"
+  placeholder="São Paulo (GRU)"
+  class="w-full bg-pp-deep border-2 border-pp-slate text-pp-light px-4 py-3 focus:border-pp-blue focus:outline-none transition-colors"
+/&gt;</pre>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="mb-16">
+                <h3 class="type-h3 text-pp-light mb-8">Navigation</h3>
+                <nav class="bg-pp-navy p-6 shadow-sharp">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-10 h-10 bg-pp-gold flex items-center justify-center">
+                                <span class="text-pp-navy font-display font-bold text-lg">PP</span>
+                            </div>
+                            <span class="type-h5 text-pp-light">Porto e Poli</span>
+                        </div>
+                        <div class="flex items-center space-x-8">
+                            <a href="#" class="type-body text-pp-light hover:text-pp-gold transition-colors">Passagens</a>
+                            <a href="#" class="type-body text-pp-light hover:text-pp-gold transition-colors">Pacotes</a>
+                            <a href="#" class="type-body text-pp-light hover:text-pp-gold transition-colors">Corporativo</a>
+                            <button class="bg-pp-blue text-pp-light px-6 py-2 type-body-sm font-semibold">
+                                Contato
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="code-block mt-6">
+<pre>&lt;nav class="bg-pp-navy p-6 shadow-sharp"&gt;
+  &lt;div class="flex items-center justify-between"&gt;
+    &lt;div class="flex items-center space-x-2"&gt;
+      &lt;div class="w-10 h-10 bg-pp-gold"&gt;PP&lt;/div&gt;
+      &lt;span class="text-xl font-bold text-pp-light"&gt;Porto e Poli&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="flex items-center space-x-8"&gt;
+      &lt;a href="#" class="text-pp-light hover:text-pp-gold"&gt;Passagens&lt;/a&gt;
+      &lt;!-- More links --&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</pre>
+                </div>
+            </div>
+
+            <!-- Badges & Tags -->
+            <div>
+                <h3 class="type-h3 text-pp-light mb-8">Badges & Tags</h3>
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <span class="bg-pp-blue text-pp-light px-4 py-2 type-caption">EXECUTIVO</span>
+                    <span class="bg-pp-gold text-pp-navy px-4 py-2 type-caption">PREMIUM</span>
+                    <span class="border-2 border-pp-blue text-pp-blue px-4 py-2 type-caption">ECONÔMICO</span>
+                    <span class="bg-pp-deep text-pp-light px-4 py-2 type-caption">PRIMEIRA CLASSE</span>
+                </div>
+
+                <div class="code-block">
+<pre>&lt;span class="bg-pp-blue text-pp-light px-4 py-2 text-xs font-semibold uppercase tracking-wide"&gt;
+  EXECUTIVO
+&lt;/span&gt;</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Animations -->
+    <section class="py-16 bg-pp-deep">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Animation Principles</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                Sharp, precise animations that feel efficient and professional. No bouncing, no elastic easing—just crisp, geometric motion.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Motion Guidelines</h3>
+                    <div class="bg-pp-navy p-6 shadow-sharp space-y-4 text-pp-slate type-body-sm">
+                        <div>
+                            <p class="text-pp-blue type-caption mb-2">DURATION</p>
+                            <p>Fast and snappy: 200-400ms for most interactions<br/>
+                            Use 600-800ms only for page-level transitions</p>
+                        </div>
+                        <div>
+                            <p class="text-pp-blue type-caption mb-2">EASING</p>
+                            <p>cubic-bezier(0.4, 0, 0.2, 1) - Sharp acceleration<br/>
+                            Avoid elastic, bounce, or overly smooth curves</p>
+                        </div>
+                        <div>
+                            <p class="text-pp-blue type-caption mb-2">DIRECTION</p>
+                            <p>Slide transitions (horizontal/vertical)<br/>
+                            Geometric reveals with clip-path<br/>
+                            Transform-based (translate, not position)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Example Animations</h3>
+                    <div class="code-block">
+<pre>/* Slide In */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Geometric Reveal */
+@keyframes geometricReveal {
+  from {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Button Hover */
+.btn:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px 0px rgba(0,0,0,0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Layout Patterns -->
+    <section class="py-16">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Layout Patterns</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                Asymmetric grids, diagonal accents, and strategic overlaps create visual interest while maintaining professionalism.
+            </p>
+
+            <!-- Hero Pattern -->
+            <div class="mb-12">
+                <h3 class="type-h4 text-pp-light mb-6">Hero Section Pattern</h3>
+                <div class="bg-pp-deep p-12 shadow-sharp diagonal-accent min-h-[400px] flex items-center">
+                    <div class="max-w-2xl">
+                        <span class="bg-pp-gold text-pp-navy px-4 py-2 type-caption inline-block mb-6">
+                            VIAGENS CORPORATIVAS
+                        </span>
+                        <h1 class="type-display-2 text-pp-light mb-6">
+                            Conectando seu negócio ao mundo
+                        </h1>
+                        <p class="type-body-lg text-pp-slate mb-8">
+                            Soluções completas em passagens aéreas e gestão de viagens para empresas que valorizam eficiência.
+                        </p>
+                        <div class="flex gap-4">
+                            <button class="bg-pp-blue text-pp-light px-8 py-4 type-body font-semibold shadow-sharp">
+                                Solicitar Orçamento
+                            </button>
+                            <button class="border-2 border-pp-blue text-pp-light px-8 py-4 type-body font-semibold">
+                                Saiba Mais
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Pattern -->
+            <div class="mb-12">
+                <h3 class="type-h4 text-pp-light mb-6">Asymmetric Grid</h3>
+                <div class="grid grid-cols-12 gap-6">
+                    <div class="col-span-7 bg-pp-deep p-8 shadow-sharp">
+                        <h4 class="type-h4 text-pp-light mb-4">Featured Content</h4>
+                        <p class="type-body text-pp-slate">
+                            Larger emphasis area for primary content, promotional offers, or key messaging.
+                        </p>
+                    </div>
+                    <div class="col-span-5 bg-pp-navy p-8 shadow-sharp-accent">
+                        <h4 class="type-h5 text-pp-light mb-4">Secondary</h4>
+                        <p class="type-body-sm text-pp-slate">
+                            Supporting information or quick actions.
+                        </p>
+                    </div>
+                    <div class="col-span-4 bg-pp-navy p-6 shadow-sharp">
+                        <p class="type-caption text-pp-blue mb-2">CARD 1</p>
+                    </div>
+                    <div class="col-span-4 bg-pp-navy p-6 shadow-sharp">
+                        <p class="type-caption text-pp-blue mb-2">CARD 2</p>
+                    </div>
+                    <div class="col-span-4 bg-pp-navy p-6 shadow-sharp">
+                        <p class="type-caption text-pp-blue mb-2">CARD 3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Iconography -->
+    <section class="py-16 bg-pp-deep">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Iconography</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                Use geometric, sharp icons that match the angular aesthetic. Prefer stroke-based icons with square caps and miter joins.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <div class="bg-pp-navy p-6 shadow-sharp flex flex-col items-center">
+                    <svg class="w-10 h-10 text-pp-blue mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                    <p class="type-caption text-pp-slate">FLIGHT</p>
+                </div>
+                <div class="bg-pp-navy p-6 shadow-sharp flex flex-col items-center">
+                    <svg class="w-10 h-10 text-pp-blue mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    <p class="type-caption text-pp-slate">HOTEL</p>
+                </div>
+                <div class="bg-pp-navy p-6 shadow-sharp flex flex-col items-center">
+                    <svg class="w-10 h-10 text-pp-blue mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <p class="type-caption text-pp-slate">DATE</p>
+                </div>
+                <div class="bg-pp-navy p-6 shadow-sharp flex flex-col items-center">
+                    <svg class="w-10 h-10 text-pp-blue mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                    <p class="type-caption text-pp-slate">GROUP</p>
+                </div>
+                <div class="bg-pp-navy p-6 shadow-sharp flex flex-col items-center">
+                    <svg class="w-10 h-10 text-pp-blue mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                    </svg>
+                    <p class="type-caption text-pp-slate">CHECK</p>
+                </div>
+                <div class="bg-pp-navy p-6 shadow-sharp flex flex-col items-center">
+                    <svg class="w-10 h-10 text-pp-blue mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <p class="type-caption text-pp-slate">MAIL</p>
+                </div>
+            </div>
+
+            <div class="code-block mt-8">
+<pre>/* SVG Icon Guidelines */
+- Use stroke-based icons (not filled)
+- stroke-linecap="square" (not round)
+- stroke-linejoin="miter" (not round)
+- stroke-width="2" for consistency
+- Size: 24x24px base (scale to 16, 20, 32, 40px as needed)
+
+/* Heroicons library recommended with customization */</pre>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Responsive Guidelines -->
+    <section class="py-16">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Responsive Design</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                Mobile-first approach with thoughtful breakpoint usage and touch-friendly interactions.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Breakpoints</h3>
+                    <div class="bg-pp-deep p-6 shadow-sharp space-y-4 type-body-sm text-pp-slate">
+                        <div class="flex justify-between items-center pb-3 border-b-2 border-pp-navy">
+                            <span class="text-pp-blue type-caption">SM</span>
+                            <code>640px</code>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b-2 border-pp-navy">
+                            <span class="text-pp-blue type-caption">MD</span>
+                            <code>768px</code>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b-2 border-pp-navy">
+                            <span class="text-pp-blue type-caption">LG</span>
+                            <code>1024px</code>
+                        </div>
+                        <div class="flex justify-between items-center pb-3 border-b-2 border-pp-navy">
+                            <span class="text-pp-blue type-caption">XL</span>
+                            <code>1280px</code>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-pp-blue type-caption">2XL</span>
+                            <code>1536px</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Mobile Considerations</h3>
+                    <div class="bg-pp-deep p-6 shadow-sharp">
+                        <ul class="space-y-3 text-pp-slate type-body-sm">
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Touch targets minimum 44x44px</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Stack cards vertically on mobile</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Collapse navigation to hamburger menu</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Reduce type scale by 20-30% on mobile</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Simplify shadows and animations</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Maintain zero border radius across all devices</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Accessibility -->
+    <section class="py-16 bg-pp-deep">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Accessibility</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                WCAG 2.1 AA compliance ensures the interface is usable by everyone.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Color Contrast</h3>
+                    <div class="space-y-4">
+                        <div class="bg-pp-navy p-4 shadow-sharp flex justify-between items-center">
+                            <span class="text-pp-light type-body">Navy + Light</span>
+                            <span class="text-pp-gold type-caption">AA ✓</span>
+                        </div>
+                        <div class="bg-pp-blue p-4 shadow-sharp flex justify-between items-center">
+                            <span class="text-pp-light type-body">Blue + Light</span>
+                            <span class="text-pp-gold type-caption">AA ✓</span>
+                        </div>
+                        <div class="bg-pp-gold p-4 shadow-sharp flex justify-between items-center">
+                            <span class="text-pp-navy type-body">Gold + Navy</span>
+                            <span class="text-pp-navy type-caption">AA ✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="type-h4 text-pp-light mb-6">Best Practices</h3>
+                    <div class="bg-pp-navy p-6 shadow-sharp">
+                        <ul class="space-y-3 text-pp-slate type-body-sm">
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Semantic HTML (nav, main, section, article)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>ARIA labels for interactive elements</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Keyboard navigation support (focus states)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Alt text for all images</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Focus indicators with 2px outline</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-pp-gold mr-3">▪</span>
+                                <span>Skip navigation links</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider container"></div>
+
+    <!-- Implementation Example -->
+    <section class="py-16">
+        <div class="container">
+            <h2 class="type-h2 text-pp-light mb-4">Full Page Example</h2>
+            <p class="type-body text-pp-slate mb-12 max-w-2xl">
+                A complete landing page demonstrating all design principles in action.
+            </p>
+
+            <div class="bg-pp-light text-pp-navy p-8 shadow-sharp">
+                <!-- Example Page Header -->
+                <nav class="bg-pp-navy p-4 shadow-sharp mb-8">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-10 h-10 bg-pp-gold flex items-center justify-center">
+                                <span class="text-pp-navy font-display font-bold">PP</span>
+                            </div>
+                            <span class="type-h5 text-pp-light hidden md:block">Porto e Poli</span>
+                        </div>
+                        <div class="flex items-center space-x-4 md:space-x-6">
+                            <a href="#" class="type-body-sm text-pp-light hover:text-pp-gold transition-colors">Passagens</a>
+                            <a href="#" class="type-body-sm text-pp-light hover:text-pp-gold transition-colors">Corporativo</a>
+                            <button class="bg-pp-blue text-pp-light px-4 py-2 type-body-sm font-semibold">
+                                Contato
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Example Hero -->
+                <div class="bg-pp-deep p-8 md:p-12 shadow-sharp diagonal-accent mb-8">
+                    <span class="bg-pp-gold text-pp-navy px-3 py-1 type-caption inline-block mb-4">
+                        SOLUÇÕES CORPORATIVAS
+                    </span>
+                    <h1 class="type-h1 text-pp-light mb-4">
+                        Viagens que<br/>impulsionam negócios
+                    </h1>
+                    <p class="type-body text-pp-slate mb-6 max-w-xl">
+                        Gestão completa de viagens corporativas com tecnologia e atendimento personalizado.
+                    </p>
+                    <button class="bg-pp-blue text-pp-light px-6 py-3 type-body font-semibold shadow-sharp hover:translate-x-[-4px] hover:translate-y-[-4px] transition-transform">
+                        Fale com Especialista
+                    </button>
+                </div>
+
+                <!-- Example Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-pp-navy p-6 shadow-sharp">
+                        <div class="w-12 h-12 bg-pp-blue flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-pp-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="type-h5 text-pp-light mb-2">Economia</h3>
+                        <p class="type-body-sm text-pp-slate">Tarifas negociadas e gestão de custos</p>
+                    </div>
+
+                    <div class="bg-pp-navy p-6 shadow-sharp">
+                        <div class="w-12 h-12 bg-pp-gold flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-pp-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="type-h5 text-pp-light mb-2">Segurança</h3>
+                        <p class="type-body-sm text-pp-slate">Suporte 24/7 e assistência completa</p>
+                    </div>
+
+                    <div class="bg-pp-navy p-6 shadow-sharp">
+                        <div class="w-12 h-12 bg-pp-blue flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-pp-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="type-h5 text-pp-light mb-2">Relatórios</h3>
+                        <p class="type-body-sm text-pp-slate">Dashboards e análises detalhadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-pp-navy mt-20">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-12 h-12 bg-pp-gold flex items-center justify-center">
+                            <span class="text-pp-navy font-display font-bold text-xl">PP</span>
+                        </div>
+                        <span class="type-h4 text-pp-light">Porto e Poli</span>
+                    </div>
+                    <p class="type-body-sm text-pp-slate max-w-md">
+                        Excelência em viagens corporativas desde 1985. Conectando empresas aos seus objetivos com eficiência e profissionalismo.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="type-caption text-pp-blue mb-4">SERVIÇOS</h4>
+                    <ul class="space-y-2 type-body-sm text-pp-slate">
+                        <li><a href="#" class="hover:text-pp-light transition-colors">Passagens Aéreas</a></li>
+                        <li><a href="#" class="hover:text-pp-light transition-colors">Hospedagem</a></li>
+                        <li><a href="#" class="hover:text-pp-light transition-colors">Pacotes</a></li>
+                        <li><a href="#" class="hover:text-pp-light transition-colors">Gestão Corporativa</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="type-caption text-pp-blue mb-4">CONTATO</h4>
+                    <ul class="space-y-2 type-body-sm text-pp-slate">
+                        <li>contato@portopoli.com.br</li>
+                        <li>(11) 3000-0000</li>
+                        <li>São Paulo - SP</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="h-px bg-pp-deep mb-8"></div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center type-body-sm text-pp-slate">
+                <p>© 2024 Porto e Poli - Passagens e Turismo. Todos os direitos reservados.</p>
+                <p class="mt-4 md:mt-0">Design System v1.0</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
