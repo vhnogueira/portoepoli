@@ -16,8 +16,8 @@ theme: {
     colors: {
       'pp-navy': '#0B1D3F',    // Primary brand, backgrounds
       'pp-deep': '#1A2F54',    // Secondary surfaces, cards
-      'pp-blue': '#2B7FE5',    // CTAs, interactive, links
-      'pp-gold': '#D4AF37',    // Premium features, highlights
+      'pp-blue': '#364c63',    // CTAs, interactive, links
+      'pp-orange': '#ea8031',  // Premium features, highlights
       'pp-slate': '#64748B',   // Secondary text, borders
       'pp-light': '#FAFBFC',   // Primary text on dark
       'pp-gray': '#E2E8F0',    // Dividers, subtle backgrounds
@@ -29,7 +29,7 @@ theme: {
 ### Usage Guidelines
 
 - **Primary**: `pp-navy` for backgrounds, `pp-deep` for cards/surfaces
-- **Accent**: `pp-blue` for CTAs and interactive elements, `pp-gold` for premium features
+- **Accent**: `pp-blue` for CTAs and interactive elements, `pp-orange` for premium features
 - **Text**: `pp-light` on dark backgrounds, `pp-navy` on light backgrounds, `pp-slate` for secondary text
 
 ---
@@ -153,7 +153,7 @@ border-radius: 0;
 </button>
 
 // Accent Button
-<button className="bg-pp-gold text-pp-navy px-8 py-4 font-semibold shadow-sharp
+<button className="bg-pp-orange text-pp-navy px-8 py-4 font-semibold shadow-sharp
                    hover:translate-x-[-4px] hover:translate-y-[-4px]
                    transition-all duration-300">
   Contato Premium
@@ -201,16 +201,16 @@ border-radius: 0;
 <nav className="bg-pp-navy p-6 shadow-sharp">
   <div className="flex items-center justify-between">
     <div className="flex items-center space-x-2">
-      <div className="w-10 h-10 bg-pp-gold flex items-center justify-center">
+      <div className="w-10 h-10 bg-pp-orange flex items-center justify-center">
         <span className="text-pp-navy font-display font-bold text-lg">PP</span>
       </div>
       <span className="text-xl font-bold text-pp-light">Porto e Poli</span>
     </div>
     <div className="flex items-center space-x-8">
-      <a href="#" className="text-pp-light hover:text-pp-gold transition-colors">
+      <a href="#" className="text-pp-light hover:text-pp-orange transition-colors">
         Passagens
       </a>
-      <a href="#" className="text-pp-light hover:text-pp-gold transition-colors">
+      <a href="#" className="text-pp-light hover:text-pp-orange transition-colors">
         Corporativo
       </a>
       <button className="bg-pp-blue text-pp-light px-6 py-2 font-semibold">
@@ -229,7 +229,7 @@ border-radius: 0;
   Executivo
 </span>
 
-<span className="bg-pp-gold text-pp-navy px-4 py-2 text-xs font-semibold
+<span className="bg-pp-orange text-pp-navy px-4 py-2 text-xs font-semibold
                  uppercase tracking-wide">
   Premium
 </span>
@@ -322,7 +322,7 @@ hover:translate-x-[-4px] hover:translate-y-[-4px]
                   [clip-path:polygon(0_0,100%_0,100%_100%,20%_100%)]" />
 
   <div className="max-w-2xl relative z-10">
-    <span className="bg-pp-gold text-pp-navy px-4 py-2 text-xs font-semibold
+    <span className="bg-pp-orange text-pp-navy px-4 py-2 text-xs font-semibold
                      uppercase tracking-wide inline-block mb-6">
       Viagens Corporativas
     </span>
@@ -393,8 +393,8 @@ hover:translate-x-[-4px] hover:translate-y-[-4px]
 ### Color Contrast (WCAG 2.1 AA)
 
 - Navy (#0B1D3F) + Light (#FAFBFC): ✓ AA
-- Blue (#2B7FE5) + Light (#FAFBFC): ✓ AA
-- Gold (#D4AF37) + Navy (#0B1D3F): ✓ AA
+- Blue (#364c63) + Light (#FAFBFC): ✓ AA
+- Orange (#ea8031) + Navy (#0B1D3F): ✓ AA
 
 ### Best Practices
 
@@ -408,7 +408,7 @@ hover:translate-x-[-4px] hover:translate-y-[-4px]
 ```jsx
 <button
   className="bg-pp-blue text-pp-light px-8 py-4
-             focus:outline-none focus:ring-2 focus:ring-pp-gold focus:ring-offset-2
+             focus:outline-none focus:ring-2 focus:ring-pp-orange focus:ring-offset-2
              focus:ring-offset-pp-navy"
   aria-label="Buscar passagens aéreas"
 >
